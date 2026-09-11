@@ -1,0 +1,7 @@
+{
+  "name": "saachi-crochet-corner",
+  "private": true,
+  "scripts": {
+    "start": "node server/server.js"
+  }
+}

@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: saachi-crochet-corner
+    runtime: node
+    rootDir: saachi
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATA_FILE_PATH
+        value: /var/data/database.json
+    disk:
+      name: saachi-data
+      mountPath: /var/data
+      sizeGB: 1

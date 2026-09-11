@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Saachi Crochet Corner — Handmade happiness, one loop at a time</title>
+<meta name="description" content="Sweet crochet treasures, flowers and thoughtful gifts — lovingly made one stitch at a time." />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="header-inner container">
+    <a href="#/" class="brand" data-link>
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="19" fill="#F3D7DD"/>
+        <path d="M12 22c0-6 4-10 8-10s8 4 8 10-4 6-8 6-8 0-8-6Z" fill="#C97B8D"/>
+        <circle cx="20" cy="14" r="3" fill="#6E4335"/>
+      </svg>
+      <span class="brand-text">Saachi Crochet Corner<small>HANDMADE · MADE WITH LOVE</small></span>
+    </a>
+
+    <nav class="main-nav" id="main-nav">
+      <a href="#/" data-link data-route="/">Home</a>
+      <a href="#/shop" data-link data-route="/shop">Shop</a>
+      <a href="#/custom-orders" data-link data-route="/custom-orders">Custom Orders</a>
+      <a href="#/gift-hampers" data-link data-route="/gift-hampers">Gift Hampers</a>
+      <a href="#/reviews" data-link data-route="/reviews">Reviews</a>
+      <a href="#/track-order" data-link data-route="/track-order">Track Order</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" id="btn-wishlist" title="Wishlist" aria-label="Wishlist">❤️<span class="badge hidden" id="wishlist-badge">0</span></button>
+      <button class="icon-btn" id="btn-cart" title="Cart" aria-label="Cart">🛒<span class="badge hidden" id="cart-badge">0</span></button>
+      <button class="icon-btn" id="btn-account" title="Account" aria-label="Account" style="width:auto;padding:0 12px;gap:6px;font-size:0.9rem;font-weight:700">👤 <span id="account-label">Login</span></button>
+      <a class="icon-btn" id="btn-admin-desktop" href="#/admin/login" data-link title="Admin Login" aria-label="Admin Login">🔐</a>
+      <button class="icon-btn hamburger" id="btn-hamburger" title="Menu" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MOBILE DRAWER ============ -->
+<div class="hidden" id="drawer-overlay-wrap">
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+  <div class="drawer" id="drawer">
+    <button class="drawer-close" id="drawer-close" aria-label="Close menu">✕</button>
+    <div style="clear:both;height:10px"></div>
+    <a href="#/" data-link data-drawer>Home</a>
+    <a href="#/shop" data-link data-drawer>Shop</a>
+    <a href="#/custom-orders" data-link data-drawer>Custom Orders</a>
+    <a href="#/gift-hampers" data-link data-drawer>Gift Hampers</a>
+    <a href="#/reviews" data-link data-drawer>Reviews</a>
+    <a href="#/track-order" data-link data-drawer>Track Order</a>
+    <a href="#/contact" data-link data-drawer>Contact</a>
+    <a href="#/admin/login" data-link data-drawer>Admin Login</a>
+  </div>
+</div>
+
+<!-- ============ APP VIEW MOUNT ============ -->
+<main id="app-view"></main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h5>Saachi Crochet Corner ♡</h5>
+        <p>Handmade happiness, one loop at a time. Every piece is stitched to order with love, in small batches.</p>
+        <p><a href="https://instagram.com/saachi_crrochet.corner_/" target="_blank" rel="noopener">@saachi_crrochet.corner</a></p>
+      </div>
+      <div>
+        <h5>Shop</h5>
+        <a href="#/shop" data-link>All Products</a>
+        <a href="#/custom-orders" data-link>Custom Orders</a>
+        <a href="#/gift-hampers" data-link>Gift Hampers</a>
+        <a href="#/track-order" data-link>Track Order</a>
+      </div>
+      <div>
+        <h5>Help</h5>
+        <a href="#/contact" data-link>Contact Us</a>
+        <a href="#/reviews" data-link>Reviews</a>
+        <a href="#/account" data-link>My Account</a>
+      </div>
+      <div>
+        <h5>Say Hello</h5>
+        <p>sachigandhi935@gmail.com</p>
+        <p>@saachi_crrochet.corner</p>
+      </div>
+    </div>
+    <div class="footer-bottom">© <span id="footer-year"></span> Saachi Crochet Corner · Handmade happiness, one loop at a time.</div>
+  </div>
+</footer>
+
+<!-- ============ TOASTS ============ -->
+<div class="toast-stack" id="toast-stack"></div>
+
+<!-- ============ OVERLAY MOUNTS (auth modal, product quick view, cart/wishlist panel) ============ -->
+<div id="overlay-mount"></div>
+
+<script src="js/data.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
