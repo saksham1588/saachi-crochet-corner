@@ -1,7 +1,20 @@
 # Public Deployment
 
-This project is ready to deploy as one Node web service. The storefront,
-database API, and customer/admin data all use the same public URL.
+This project can be published for free as a static website with GitHub Pages.
+The storefront works without a paid server. Customer/admin data is saved in
+each visitor's browser through localStorage; shared permanent database storage
+requires a server and database plan.
+
+## Free GitHub Pages
+
+1. Push the project to GitHub.
+2. Open the repository's **Settings > Pages**.
+3. Under **Build and deployment**, choose **GitHub Actions**.
+4. Push a new commit or run the **Deploy Saachi Crochet Corner** workflow.
+5. Open `https://saksham1588.github.io/saachi-crochet-corner/`.
+
+The GitHub Actions workflow is in `.github/workflows/pages.yml` and deploys the
+site automatically on every push to `main`.
 
 ## Render
 
