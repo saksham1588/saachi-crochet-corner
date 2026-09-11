@@ -1,0 +1,192 @@
+// ============================================================
+// Saachi Crochet Corner — Prisma schema (PostgreSQL)
+// This is the real-database counterpart to the localStorage
+// simulation in /js/data.js. Point a Node/Express or Next.js
+// API layer at this schema to move the app from demo-grade
+// storage to a production database, following API_ROUTES.md.
+// ============================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String       @id @default(cuid())
+  fullName     String
+  email        String       @unique
+  phone        String?
+  passwordHash String       // bcrypt hash — never store plaintext
+  addresses    Address[]
+  orders       Order[]
+  wishlist     Wishlist[]
+  createdAt    DateTime     @default(now())
+}
+
+model Address {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  fullName  String
+  address   String
+  city      String
+  state     String
+  pin       String
+  createdAt DateTime @default(now())
+}
+
+model Admin {
+  id                 String   @id @default(cuid())
+  email              String   @unique
+  passwordHash       String   // bcrypt hash — never store plaintext
+  mustChangePassword Boolean  @default(true)
+  createdAt          DateTime @default(now())
+}
+
+model Category {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  products Product[]
+}
+
+model Product {
+  id          String         @id @default(cuid())
+  sku         String         @unique
+  name        String
+  description String
+  price       Int            // stored in paise/rupees as integer to avoid float rounding
+  stock       Int            @default(0)
+  featured    Boolean        @default(false)
+  newArrival  Boolean        @default(false)
+  available   Boolean        @default(true)
+  category    Category       @relation(fields: [categoryId], references: [id])
+  categoryId  String
+  images      ProductImage[]
+  orderItems  OrderItem[]
+  wishlistOf  Wishlist[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String
+  url       String   // Cloudinary / S3 / Supabase Storage URL, never a local path
+  isPrimary Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Wishlist {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  addedAt   DateTime @default(now())
+
+  @@unique([userId, productId])
+}
+
+model Order {
+  id                 String      @id // human-friendly ID e.g. SC2026001234, generated in the API layer
+  user               User?       @relation(fields: [userId], references: [id])
+  userId             String?
+  customerName       String
+  customerPhone      String
+  customerEmail      String
+  addressLine        String
+  city               String
+  state              String
+  pin                String
+  items              OrderItem[]
+  subtotal           Int
+  delivery           Int
+  total              Int
+  paymentStatus      String      @default("Pending Confirmation")
+  status             String      @default("Order Placed")
+  estimatedDelivery  String?
+  statusHistory      Json        // [{ status, at }]
+  createdAt          DateTime    @default(now())
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId   String
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+  name      String
+  price     Int
+  qty       Int
+}
+
+model CustomOrder {
+  id              String   @id @default(cuid())
+  name            String
+  email           String
+  phone           String
+  product         String
+  colour          String
+  size            String?
+  quantity        Int
+  budget          Int?
+  description     String?
+  referenceImage  String?  // Cloudinary / S3 URL
+  status          String   @default("New") // New, In Progress, Completed, Cancelled
+  userId          String?
+  createdAt       DateTime @default(now())
+}
+
+model HamperRequest {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String
+  budget    Int
+  theme     String?
+  colours   String?
+  products  String?
+  message   String?
+  status    String   @default("New")
+  createdAt DateTime @default(now())
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  name      String
+  rating    Int
+  text      String
+  image     String?
+  approved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Subscriber {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  subscribedAt  DateTime @default(now())
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model StoreSettings {
+  id                    String  @id @default("singleton")
+  upiId                 String
+  paymentInstructions   String
+  razorpayKeyId         String?
+  deliveryCharge        Int     @default(49)
+  freeDeliveryAbove     Int     @default(999)
+}
