@@ -2,8 +2,8 @@
 
 This project can be published for free as a static website with GitHub Pages.
 The storefront works without a paid server. Customer/admin data is saved in
-each visitor's browser through localStorage; shared permanent database storage
-requires a server and database plan.
+each visitor's browser through localStorage. GitHub Pages cannot provide a
+shared database or receive writes from the website.
 
 ## Free GitHub Pages
 
@@ -13,8 +13,8 @@ requires a server and database plan.
 4. Push a new commit or run the **Deploy Saachi Crochet Corner** workflow.
 5. Open `https://saksham1588.github.io/saachi-crochet-corner/`.
 
-The GitHub Actions workflow is in `.github/workflows/pages.yml` and deploys the
-site automatically on every push to `main`.
+The GitHub Actions workflow is in `.github/workflows/free-pages.yml` and deploys
+the site automatically on every push to `main`.
 
 ## Render
 
